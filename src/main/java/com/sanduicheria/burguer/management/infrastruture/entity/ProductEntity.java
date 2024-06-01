@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.*;
 
-@Document(collection = "product")
+@Document(collection = "/product")
 @Getter
 @Setter
 @NoArgsConstructor
