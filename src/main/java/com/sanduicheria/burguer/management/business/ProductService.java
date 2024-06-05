@@ -1,6 +1,8 @@
 package com.sanduicheria.burguer.management.business;
 
 
+import java.util.Collection;
+
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import com.sanduicheria.burguer.management.api.converter.ProductConverter;
@@ -18,6 +20,14 @@ public class ProductService {
     private final ProdutctRepository productRepository;
     private final ProductConverter productConverter;
     private final ProductMapper productMapper;
+
+    public Collection<ProductEntity> listAll() {
+        try {
+            return productRepository.findAll();
+        } catch (Exception e) {
+            throw new BusinessException("Erro ao listar produtos", e);
+        }
+    }
 
     public ProductEntity saveProductDTO(ProductEntity productEntity) {
         return productRepository.save(productEntity);
