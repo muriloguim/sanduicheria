@@ -32,6 +32,14 @@ public class ProductService {
         }
     }
 
+    public Optional<ProductEntity> listProduct(String productId) {
+        try {
+            return productRepository.findById(productId);
+        } catch (Exception e) {
+            throw new BusinessException("Erro ao listar produto", e);
+        }
+    }
+
     public ProductEntity saveProductDTO(ProductEntity productEntity) {
         return productRepository.save(productEntity);
     }

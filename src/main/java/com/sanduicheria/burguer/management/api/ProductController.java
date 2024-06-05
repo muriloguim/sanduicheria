@@ -1,6 +1,7 @@
 package com.sanduicheria.burguer.management.api;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import com.sanduicheria.burguer.management.infrastruture.entity.ProductEntity;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Controller
@@ -30,6 +32,12 @@ public class ProductController {
     @GetMapping()
     public @ResponseBody Collection<ProductEntity> listAll() {
         return productService.listAll();
+    }
+
+    @GetMapping("{id}")
+    public @ResponseBody Optional<ProductEntity> listProductId(@PathVariable String id) {
+        return productService.listProduct(id);
+        //return ResponseEntity.ok(productService.listProduct(productId));
     }
 
     @PostMapping()
