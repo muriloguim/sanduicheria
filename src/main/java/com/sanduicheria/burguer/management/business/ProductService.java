@@ -2,8 +2,11 @@ package com.sanduicheria.burguer.management.business;
 
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import com.sanduicheria.burguer.management.api.converter.ProductConverter;
 import com.sanduicheria.burguer.management.api.converter.ProductMapper;
@@ -41,6 +44,11 @@ public class ProductService {
         } catch (Exception e) {
             throw new BusinessException("Erro ao gravar dados do produto", e);
         }
+    }
+
+    @Transactional
+    public void delete(String productId) {
+        productRepository.deleteById(productId);
     }
 
 }
