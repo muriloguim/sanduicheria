@@ -19,6 +19,7 @@ import com.sanduicheria.burguer.management.infrastruture.entity.ProductEntity;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -61,6 +62,35 @@ public class ProductController {
         product.setName(productDetails.getName());
         product.setPrice(productDetails.getPrice());
 
+        ProductEntity updateProduct = productService.saveProductDTO(product);
+        return ResponseEntity.ok(updateProduct);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ProductEntity> update(@PathVariable String id, @RequestBody ProductEntity productDetails) {
+        Optional<ProductEntity> optionalProduct = productService.listProduct(id);        
+        if (!optionalProduct.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        ProductEntity product = optionalProduct.get();
+
+        if (productDetails.getName() != null) {
+            product.setName(productDetails.getName());
+        }
+        if (productDetails.getCategory() != null) {
+            product.setCategory(productDetails.getCategory());
+        }
+        if (productDetails.getDescription() != null) {
+            product.setDescription(productDetails.getDescription());
+        }
+        if (productDetails.getName() != null) {
+            product.setName(productDetails.getName());
+        }
+        if (productDetails.getPrice() != null) {
+            product.setPrice(productDetails.getPrice());
+        }
+        
         ProductEntity updateProduct = productService.saveProductDTO(product);
         return ResponseEntity.ok(updateProduct);
     }
