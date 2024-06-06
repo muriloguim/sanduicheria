@@ -20,6 +20,8 @@ import com.sanduicheria.burguer.management.infrastruture.entity.ProductEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @Controller
@@ -30,11 +32,11 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping()
-    public @ResponseBody Collection<ProductEntity> listAll() {
+    public @ResponseBody Collection<ProductEntity> listAllProducts() {
         return productService.listAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public @ResponseBody Optional<ProductEntity> listProductId(@PathVariable String id) {
         return productService.listProduct(id);
         //return ResponseEntity.ok(productService.listProduct(productId));
@@ -45,10 +47,28 @@ public class ProductController {
         return ResponseEntity.ok(productService.saveProduct(productRequestDTO));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductEntity> updateProduct(@PathVariable String id, @RequestBody ProductEntity productDetails) {
+        Optional<ProductEntity> optionalProduct = productService.listProduct(id);        
+        if (!optionalProduct.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        ProductEntity product = optionalProduct.get();
+        product.setName(productDetails.getName());
+        product.setCategory(productDetails.getCategory());
+        product.setDescription(productDetails.getDescription());
+        product.setName(productDetails.getName());
+        product.setPrice(productDetails.getPrice());
+
+        ProductEntity updateProduct = productService.saveProductDTO(product);
+        return ResponseEntity.ok(updateProduct);
+    }
+
     @DeleteMapping
     public ResponseEntity<Void> delete(@RequestParam ("id") String productId) {
         productService.delete(productId);
         return ResponseEntity.accepted().build();
-    }
+    }    
 
 }
