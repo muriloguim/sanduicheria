@@ -2,9 +2,8 @@ package com.sanduicheria.burguer.management.infrastruture.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Document(collection = "customer")
 @Getter
