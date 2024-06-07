@@ -43,6 +43,15 @@ public class ProductController {
         //return ResponseEntity.ok(productService.listProduct(productId));
     }
 
+    @GetMapping("/category/{category}")
+    public ResponseEntity<Collection<ProductEntity>> getProductsByCategory(@PathVariable String category) {
+        Collection<ProductEntity> products = productService.findByCategory(category);
+        if(products.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(products);
+    }
+
     @PostMapping()
     public ResponseEntity<ProductResponseDTO> saveProduct(@RequestBody ProductRequestDTO productRequestDTO) {
         return ResponseEntity.ok(productService.saveProduct(productRequestDTO));
