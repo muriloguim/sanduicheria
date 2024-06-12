@@ -22,7 +22,6 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<CustomerEntity> saveCustomer(@RequestBody CustomerEntity customer) {
         log.info("AQUIIIIIIIIIIIIIII");
-        log.info("Received request to create customer: {}", customer);
         
         CustomerEntity savedCliente = customerService.save(customer);
         return ResponseEntity.ok(savedCliente);
