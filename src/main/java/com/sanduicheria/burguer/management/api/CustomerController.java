@@ -49,7 +49,7 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerEntity> updateProduct(@PathVariable String id, @RequestBody CustomerEntity customerDetails) {
+    public ResponseEntity<CustomerEntity> updateCustomer(@PathVariable String id, @RequestBody CustomerEntity customerDetails) {
         Optional<CustomerEntity> optionalCustomer = customerService.listCustomer(id);        
         if (!optionalCustomer.isPresent()) {
             return ResponseEntity.notFound().build();
@@ -60,6 +60,30 @@ public class CustomerController {
         customer.setCellphone(customerDetails.getCellphone());
         customer.setDocument(customerDetails.getDocument());
 
+        CustomerEntity updateCustomer = customerService.save(customer);
+        return ResponseEntity.ok(updateCustomer);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<CustomerEntity> update(@PathVariable String id, @RequestBody CustomerEntity customerDetails) {
+        Optional<CustomerEntity> optionalCustomer = customerService.listCustomer(id);        
+        if (!optionalCustomer.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        CustomerEntity customer = optionalCustomer.get();
+
+        if (customerDetails.getName() != null) {
+            customer.setName(customerDetails.getName());
+        }
+        if (customerDetails.getCellphone() != null) {
+            customer.setCellphone(customerDetails.getCellphone());
+        }
+        if (customerDetails.getDocument() != null) {
+            customer.setDocument(customerDetails.getDocument());
+        }
+
+        
         CustomerEntity updateCustomer = customerService.save(customer);
         return ResponseEntity.ok(updateCustomer);
     }
