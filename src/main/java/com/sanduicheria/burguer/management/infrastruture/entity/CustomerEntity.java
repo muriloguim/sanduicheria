@@ -2,8 +2,8 @@ package com.sanduicheria.burguer.management.infrastruture.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import jakarta.validation.constraints.NotBlank;
 
 @Document(collection = "customer")
 @Getter
@@ -18,7 +18,7 @@ public class CustomerEntity {
     private String name;
     private String cellphone;
 
-    @NotBlank(message = "CPF é um campo obrigatório")
+    @JsonProperty(required = true)
     private String document;
 
 }
