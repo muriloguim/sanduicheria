@@ -1,6 +1,8 @@
 package com.sanduicheria.burguer.management.api;
 
 import java.util.Collection;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,11 @@ public class CustomerController {
     @GetMapping()
     public @ResponseBody Collection<CustomerEntity> listAllCustomers() {
         return customerService.listAll();
+    }
+
+    @GetMapping("/{id}")
+    public @ResponseBody Optional<CustomerEntity> listProductId(@PathVariable String id) {
+        return customerService.listCustomer(id);
     }
 
     @PostMapping
