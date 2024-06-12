@@ -48,4 +48,20 @@ public class CustomerController {
         return ResponseEntity.ok(savedCliente);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<CustomerEntity> updateProduct(@PathVariable String id, @RequestBody CustomerEntity customerDetails) {
+        Optional<CustomerEntity> optionalCustomer = customerService.listCustomer(id);        
+        if (!optionalCustomer.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        CustomerEntity customer = optionalCustomer.get();
+        customer.setName(customerDetails.getName());
+        customer.setCellphone(customerDetails.getCellphone());
+        customer.setDocument(customerDetails.getDocument());
+
+        CustomerEntity updateCustomer = customerService.save(customer);
+        return ResponseEntity.ok(updateCustomer);
+    }
+
 }
