@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.sanduicheria.burguer.management.infrastruture.entity.CustomerEntity;
 import com.sanduicheria.burguer.management.infrastruture.exceptions.BusinessException;
 import com.sanduicheria.burguer.management.infrastruture.repository.CustomerRepository;
@@ -39,6 +41,11 @@ public class CustomerService {
 
     public CustomerEntity save(CustomerEntity customer) {
         return customerRepository.save(customer);
+    }
+
+    @Transactional
+    public void delete(String customerId) {
+        customerRepository.deleteById(customerId);
     }
 
 }

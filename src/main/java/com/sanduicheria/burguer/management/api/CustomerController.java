@@ -82,10 +82,15 @@ public class CustomerController {
         if (customerDetails.getDocument() != null) {
             customer.setDocument(customerDetails.getDocument());
         }
-
         
         CustomerEntity updateCustomer = customerService.save(customer);
         return ResponseEntity.ok(updateCustomer);
     }
+
+    @DeleteMapping
+    public ResponseEntity<Void> delete(@RequestParam ("id") String customerId) {
+        customerService.delete(customerId);
+        return ResponseEntity.accepted().build();
+    }  
 
 }
