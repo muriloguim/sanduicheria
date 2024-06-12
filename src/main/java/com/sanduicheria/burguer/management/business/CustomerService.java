@@ -33,6 +33,10 @@ public class CustomerService {
         }
     }
 
+    public Collection<CustomerEntity> findByDocument(String document) {
+        return customerRepository.findByDocument(document);
+    }
+
     public CustomerEntity save(CustomerEntity customer) {
         return customerRepository.save(customer);
     }

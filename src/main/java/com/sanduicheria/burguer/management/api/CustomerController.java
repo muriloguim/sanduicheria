@@ -31,6 +31,15 @@ public class CustomerController {
         return customerService.listCustomer(id);
     }
 
+    @GetMapping("/document/{document}")
+    public ResponseEntity<Collection<CustomerEntity>> getCustomerByDocument(@PathVariable String document) {
+        Collection<CustomerEntity> customer = customerService.findByDocument(document);
+        if(customer.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(customer);
+    }
+
     @PostMapping
     public ResponseEntity<CustomerEntity> saveCustomer(@RequestBody CustomerEntity customer) {
         log.info("AQUIIIIIIIIIIIIIII");
